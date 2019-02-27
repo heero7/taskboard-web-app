@@ -1,0 +1,29 @@
+.task-card {
+    background-color: #2D4F6F !important;
+}
+
+.content-container {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+}
+
+.content {
+    width: 70%;
+    height: 200px;
+    float: left;
+}
+
+.task-card-text-wrapper {
+    width: 100%;; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.task-card-buttons {
+    margin-left: 87%;
+}
+
+.action-button {
+    margin-bottom: 50%;
+}

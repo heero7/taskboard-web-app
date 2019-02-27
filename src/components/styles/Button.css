@@ -2,3 +2,15 @@
     background: #99bdc0;
     border: none;
 }
+
+#complete-button {
+    background-color: #63b470 !important;
+}
+
+#edit-button {
+    background-color: #e1a338 !important;
+}
+
+#delete-button {
+    background-color: #f44336 !important;
+}

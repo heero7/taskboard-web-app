@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Row, Col, Button, Icon } from "react-materialize";
+import { Row, Col, Button, Icon, Modal } from "react-materialize";
 
 import ColumnHeader from "../reusables/ColumnHeader";
+import AddTaskModal from "../reusables/AddTaskModal";
 import TaskCard from "../tasks/TaskCard";
+import Input from "../reusables/Input";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -49,10 +51,14 @@ class Dashboard extends React.Component {
     return (
       <div className="container">
         <h2>Welcome, User!</h2>
+        <div>
+          <Modal header="Add Task" trigger={<Button>Add<Icon left>add</Icon></Button>}>
+             <Input type="text" name="taskname" placeholder="Task Name.."/>
+             <Input type="text" name="prioritylvl" placeholder="Priority Level"/> 
+             {/* ^^^ This should be a dropdown not text!! */}
+          </Modal>
+        </div>
 
-        <Button>
-          Add<Icon left>add</Icon>
-        </Button>
         <Row>
           <Col m={4} s={12}>
             <ColumnHeader title={"High"} />

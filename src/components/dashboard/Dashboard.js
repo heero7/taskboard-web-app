@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Row, Col } from "react-materialize";
+import { Row, Col, Button, Icon } from "react-materialize";
 
 import ColumnHeader from "../reusables/ColumnHeader";
 import TaskCard from "../tasks/TaskCard";
 
 class Dashboard extends React.Component {
   constructor(props) {
-      super(props);
+    super(props);
     this.state = {
       tasks: [
         {
@@ -36,34 +36,35 @@ class Dashboard extends React.Component {
   }
 
   renderPriorityTasks(priority) {
-    if (!this.state.tasks || priority > 3) return <h5>All done for now!</h5>; 
-    let highPrioirity = this.state.tasks.filter(task => task.taskPriority === priority);
+    if (!this.state.tasks || priority > 3) return <h5>All done for now!</h5>;
+    let highPrioirity = this.state.tasks.filter(
+      task => task.taskPriority === priority
+    );
     return highPrioirity.map((task, key) => {
       return <TaskCard task={task} key={key} />;
     });
   }
 
-  
   render() {
     return (
-      <div>
+      <div className="container">
         <h2>Welcome, User!</h2>
+
+        <Button>
+          Add<Icon left>add</Icon>
+        </Button>
         <Row>
-          <Col m={3} s={12}>
+          <Col m={4} s={12}>
             <ColumnHeader title={"High"} />
             {this.renderPriorityTasks(3)}
           </Col>
-          <Col m={3} s={12}>
+          <Col m={4} s={12}>
             <ColumnHeader title={"Medium"} />
             {this.renderPriorityTasks(2)}
           </Col>
-          <Col m={3} s={12}>
-          <ColumnHeader title={"Low"} />
-          {this.renderPriorityTasks(1)}
-          </Col>
-          <Col m={3} s={12}>
-            <ColumnHeader title={"Done"} />
-            {this.renderPriorityTasks(0)}
+          <Col m={4} s={12}>
+            <ColumnHeader title={"Low"} />
+            {this.renderPriorityTasks(1)}
           </Col>
         </Row>
       </div>

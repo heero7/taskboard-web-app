@@ -4,13 +4,17 @@ import { connect } from "react-redux";
 import { Row, Col, Button, Icon, Modal } from "react-materialize";
 
 import ColumnHeader from "../reusables/ColumnHeader";
-import AddTaskModal from "../reusables/AddTaskModal";
+//import AddTaskModal from "../reusables/AddTaskModal";
 import TaskCard from "../tasks/TaskCard";
 import Input from "../reusables/Input";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.addTask = this.addTask.bind(this);
+    this.inputChangeHanlder = this.inputChangeHanlder.bind(this);
+
     this.state = {
       tasks: [
         {
@@ -33,8 +37,14 @@ class Dashboard extends React.Component {
           taskName: "Workout",
           taskPriority: 0
         }
-      ]
+      ],
+      taskNameInput : "",
+      taskPriorityInput : ""
     };
+  }
+
+  inputChangeHanlder(e) {
+    this.setState({ [e.target.name] : e.target.value });
   }
 
   renderPriorityTasks(priority) {
@@ -47,15 +57,40 @@ class Dashboard extends React.Component {
     });
   }
 
+  addTask() {
+    if (this.state.taskPriorityInput < 0) console.error("Number cannot be less than 0");
+    
+    let task = {
+        taskName : this.state.taskNameInput,
+        taskPriority : this.state.taskPriorityInput
+    };
+
+    let newList = this.state.tasks.concat(task);
+    this.setState({ tasks : newList });
+  }
+
   render() {
     return (
       <div className="container">
         <h2>Welcome, User!</h2>
         <div>
-          <Modal header="Add Task" trigger={<Button>Add<Icon left>add</Icon></Button>}>
-             <Input type="text" name="taskname" placeholder="Task Name.."/>
-             <Input type="text" name="prioritylvl" placeholder="Priority Level"/> 
-             {/* ^^^ This should be a dropdown not text!! */}
+          <Modal
+            id="add-task"
+            header="Add Task"
+            trigger={
+              <Button>
+                Add<Icon left>add</Icon>
+              </Button>
+            }
+            actions={
+              <div>
+                <Button className="btn waves-effect waves-light btn-flat modal-action" onClick={this.addTask}>Add</Button>
+                <Button className="btn waves-effect waves-light btn-flat modal-action modal-close">Cancel</Button>
+              </div>
+            }
+          >
+          <input type="text" placeholder="Task Name..." name="taskNameInput" onChange={this.inputChangeHanlder} />
+          <input type="number" min="0" max="3" placeholder="Priority Level..." name="taskPriorityInput" onChange={this.inputChangeHanlder} />
           </Modal>
         </div>
 

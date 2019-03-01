@@ -36,7 +36,6 @@ class TaskCard extends React.Component {
           <div className="task-card-buttons">
             <Button
               floating
-              medium
               id="complete-button"
               className="action-button"
               waves="light"
@@ -44,7 +43,7 @@ class TaskCard extends React.Component {
             />
             <Button
               floating
-              medium
+              
               id="edit-button"
               className="action-button"
               waves="light"
@@ -52,7 +51,7 @@ class TaskCard extends React.Component {
             />
             <Button
               floating
-              medium
+              
               id="delete-button"
               className="action-button"
               waves="light"

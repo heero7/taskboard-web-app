@@ -21,13 +21,13 @@ class TaskCard extends React.Component {
   //clicking on edit it can update by id
 
   render() {
-    let priorityLvl = this.props.task.taskPriority;
+    let priorityLvl = this.props.task.Priority;
     return (
       <Card className="task-card" textClassName="white-text">
         <div className="content-container">
           <div className="content">
             <h5 className="task-card-text-wrapper">
-              Task: {this.props.task.taskName}
+              Task: {this.props.task.Name}
             </h5>
             <h5 className="task-card-text-wrapper">
               Priority: {Priority[priorityLvl].value}

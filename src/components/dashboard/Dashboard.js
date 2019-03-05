@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { Row, Col, Button, Icon, Modal } from "react-materialize";
 
 import ColumnHeader from "../reusables/ColumnHeader";
-//import AddTaskModal from "../reusables/AddTaskModal";
 import TaskCard from "../tasks/TaskCard";
-import Input from "../reusables/Input";
+import TaskList from "../tasks/TaskList";
+import { taskActions } from "../../actions/taskActions";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -43,6 +43,13 @@ class Dashboard extends React.Component {
     };
   }
 
+  componentDidMount(){
+    console.log("Hello");
+    const { dispatch } = this.props;
+    dispatch(taskActions.getAll());
+    console.log(this.props);
+  }
+
   inputChangeHanlder(e) {
     this.setState({ [e.target.name] : e.target.value });
   }
@@ -60,16 +67,21 @@ class Dashboard extends React.Component {
   addTask() {
     if (this.state.taskPriorityInput < 0) console.error("Number cannot be less than 0");
     
+    let input = parseInt(this.state.taskPriorityInput, 10);
+
     let task = {
         taskName : this.state.taskNameInput,
-        taskPriority : this.state.taskPriorityInput
+        taskPriority : input
     };
 
-    let newList = this.state.tasks.concat(task);
-    this.setState({ tasks : newList });
+    this.setState({ tasks : this.state.tasks.concat(task) });
   }
 
   render() {
+    let x = this.props.tasks;
+    if (x.tasks) {
+      
+    }
     return (
       <div className="container">
         <h2>Welcome, User!</h2>
@@ -95,17 +107,17 @@ class Dashboard extends React.Component {
         </div>
 
         <Row>
-          <Col m={4} s={12}>
+          <Col m={4} s={12}> 
             <ColumnHeader title={"High"} />
-            {this.renderPriorityTasks(3)}
+            <TaskList tasks={this.props.tasks.tasks ? this.props.tasks.tasks.filter(t => { return t.Priority === 3 }) : [{ Name : "Blah", Priority : 1}]} />
           </Col>
           <Col m={4} s={12}>
             <ColumnHeader title={"Medium"} />
-            {this.renderPriorityTasks(2)}
+            <TaskList tasks={this.props.tasks.tasks ? this.props.tasks.tasks.filter(t => { return t.Priority === 2 }) : [{ Name : "Blah", Priority : 1}]} />
           </Col>
           <Col m={4} s={12}>
             <ColumnHeader title={"Low"} />
-            {this.renderPriorityTasks(1)}
+            <TaskList tasks={this.props.tasks.tasks ? this.props.tasks.tasks.filter(t => { return t.Priority === 1 }) : [{ Name : "Blah", Priority : 1}]} />
           </Col>
         </Row>
       </div>
@@ -114,10 +126,12 @@ class Dashboard extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { authentication } = state;
+  const { authentication, tasks } = state;
   const { user } = authentication;
+  
   return {
-    user
+    user,
+    tasks
   };
 }
 

@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Row, Col, Button, Icon, Modal } from "react-materialize";
+import { Row, Col, Button, Icon } from "react-materialize";
 
 import ColumnHeader from "../reusables/ColumnHeader";
 import TaskCard from "../tasks/TaskCard";
 import TaskList from "../tasks/TaskList";
+import Modal from "../reusables/modal/Modal";
 import { taskActions } from "../../actions/taskActions";
 
 class Dashboard extends React.Component {
@@ -39,7 +40,8 @@ class Dashboard extends React.Component {
         }
       ],
       taskNameInput : "",
-      taskPriorityInput : ""
+      taskPriorityInput : "",
+      show : false
     };
   }
 
@@ -77,6 +79,14 @@ class Dashboard extends React.Component {
     this.setState({ tasks : this.state.tasks.concat(task) });
   }
 
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
   render() {
     let x = this.props.tasks;
     if (x.tasks) {
@@ -85,27 +95,12 @@ class Dashboard extends React.Component {
     return (
       <div className="container">
         <h2>Welcome, User!</h2>
-        <div>
-          <Modal
-            id="add-task"
-            header="Add Task"
-            trigger={
-              <Button>
-                Add<Icon left>add</Icon>
-              </Button>
-            }
-            actions={
-              <div>
-                <Button className="btn waves-effect waves-light btn-flat modal-action" onClick={this.addTask}>Add</Button>
-                <Button className="btn waves-effect waves-light btn-flat modal-action modal-close">Cancel</Button>
-              </div>
-            }
-          >
+        <Modal show={this.state.show} handleClose={this.hideModal}>
+          <h3>Add Task</h3>
           <input type="text" placeholder="Task Name..." name="taskNameInput" onChange={this.inputChangeHanlder} />
           <input type="number" min="0" max="3" placeholder="Priority Level..." name="taskPriorityInput" onChange={this.inputChangeHanlder} />
-          </Modal>
-        </div>
-
+        </Modal>
+        <Button onClick={this.showModal}>Add</Button>
         <Row>
           <Col m={4} s={12}> 
             <ColumnHeader title={"High"} />

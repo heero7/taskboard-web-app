@@ -10,6 +10,16 @@ export function tasks(state = {}, action) {
             };
         case taskConstants.GET_ALL_TASK_FAILURE:
             return {};
+        case taskConstants.CREATE_TASK_REQUEST:
+            return {};
+        case taskConstants.CREATE_TASK_SUCCESS:
+            return {
+                status : action.status
+            };
+        case taskConstants.CREATE_TASK_FAILURE:
+            return {
+                status : action.error
+            };
         default:
             return state;
     }

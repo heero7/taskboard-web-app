@@ -2,6 +2,7 @@ import { authHeader } from "../util";
 
 export const taskService = {
     getAll,
+    create
 };
 
 async function getAll() {
@@ -11,6 +12,19 @@ async function getAll() {
             "Content-Type" : "application/json",
             ...authHeader()
         },
+    };
+    const response = await fetch("http://localhost:8080/api/v1/tasks", requestOptions);
+    return responseHandler(response);
+}
+
+async function create(task) {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+            ...authHeader()
+        },
+        body: JSON.stringify(task)
     };
     const response = await fetch("http://localhost:8080/api/v1/tasks", requestOptions);
     return responseHandler(response);

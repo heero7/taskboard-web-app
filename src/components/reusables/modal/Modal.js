@@ -13,14 +13,14 @@ class Modal extends React.Component {
         const {
             handleClose,
             show,
-            children
+            children,
         } = this.props;
         const showHide = show ? "task-modal display-block" : "task-modal display-none";
         return(
             <div className={showHide}>
                 <section className="modal-main">
                     {children}
-                    <Button onClick={handleClose}>close</Button>
+                    <Button className="btns" onClick={handleClose}>close</Button>
                 </section>
             </div>
         );

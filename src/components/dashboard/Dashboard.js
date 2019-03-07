@@ -76,7 +76,8 @@ class Dashboard extends React.Component {
         taskPriority : input
     };
 
-    this.setState({ tasks : this.state.tasks.concat(task) });
+    const { dispatch } = this.props;
+    dispatch(taskActions.create(task));
   }
 
   showModal = () => {
@@ -88,17 +89,14 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    let x = this.props.tasks;
-    if (x.tasks) {
-      
-    }
     return (
       <div className="container">
         <h2>Welcome, User!</h2>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
+        <Modal show={this.state.show} handleClose={this.hideModal} >
           <h3>Add Task</h3>
           <input type="text" placeholder="Task Name..." name="taskNameInput" onChange={this.inputChangeHanlder} />
           <input type="number" min="0" max="3" placeholder="Priority Level..." name="taskPriorityInput" onChange={this.inputChangeHanlder} />
+          <Button id="add-task" className="btns">Add</Button>
         </Modal>
         <Button onClick={this.showModal}>Add</Button>
         <Row>

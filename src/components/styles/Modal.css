@@ -25,3 +25,9 @@
 .display-none {
     display: none;
 }
+
+.btns {
+    float: left;
+    margin: 5px;
+}
+
